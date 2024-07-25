@@ -5,7 +5,7 @@ This project is a simple Kanban application built using JavaFX. It allows users 
 
 ## Features
 - Create tasks
-- Move tasks between columns (e.g., "To Do," "In Progress," "Completed")
+- Move tasks between columns (e.g., "Backlog", "In Progress", "Completed")
 - Delete tasks
 
 ## Getting Started

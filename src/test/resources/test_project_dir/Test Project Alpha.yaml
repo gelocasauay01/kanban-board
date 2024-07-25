@@ -1,0 +1,8 @@
+title: Test Project Alpha
+columns:
+- title: Backlog
+  tasks: [Fuck off, Implement Habits, Implement Pets]
+- title: In Progress
+  tasks: [Implement the alarm]
+- title: Completed
+  tasks: [Dumb shit, Create Unit Tescascascascascascascsacascascascsacascsaccsats]
