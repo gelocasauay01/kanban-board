@@ -6,5 +6,7 @@ module com.chomsy {
     requires org.yaml.snakeyaml;
 
     opens com.chomsy to javafx.fxml;
+    opens com.chomsy.models to org.yaml.snakeyaml;
+
     exports com.chomsy;
 }
