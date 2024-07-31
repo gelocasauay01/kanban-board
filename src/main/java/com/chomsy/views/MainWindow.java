@@ -10,6 +10,7 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 import java.io.File;
 import java.util.Objects;
@@ -17,6 +18,7 @@ import java.util.Optional;
 
 import com.chomsy.controllers.ProjectController;
 import com.chomsy.interfaces.Observer;
+import com.chomsy.repositories.YamlProjectRepository;
 
 public class MainWindow extends VBox implements Observer<ProjectController> {
     private ProjectController controller;
@@ -56,7 +58,7 @@ public class MainWindow extends VBox implements Observer<ProjectController> {
     private MenuItem createOpenMenuItem() {
         MenuItem open = new MenuItem("Open");
         open.setOnAction(e -> {
-            FileChooser fileChooser = new FileChooser();
+            FileChooser fileChooser = createFileChooser();
             File file = fileChooser.showOpenDialog(null);
             if(Objects.nonNull(file)) {
                 controller.setProjectFromFilePath(file.getAbsolutePath());
@@ -76,6 +78,26 @@ public class MainWindow extends VBox implements Observer<ProjectController> {
         return newItem;
     }
 
+    private FileChooser createFileChooser() {
+        FileChooser fileChooser = new FileChooser();
+        setExtensionFilters(fileChooser);
+        setInitialDirectory(fileChooser);
+        return fileChooser;
+    }
+
+    private void setExtensionFilters(FileChooser fileChooser) {
+        String fileTypeDescription = "YAML File (*.yaml, *.yml)";
+        String[] fileExtensions = { "*.yaml", "*.yml"};
+        fileChooser.getExtensionFilters().add((new ExtensionFilter(fileTypeDescription, fileExtensions)));
+    }
+
+    private void setInitialDirectory(FileChooser fileChooser) {
+        File defaultDirectory = new File(YamlProjectRepository.DEFAULT_PATH);
+        if(!defaultDirectory.exists()) {
+            defaultDirectory.mkdir();
+        }
+        fileChooser.setInitialDirectory(defaultDirectory);
+    } 
     @Override
     public void update(ProjectController payload) {
         getChildren().clear();

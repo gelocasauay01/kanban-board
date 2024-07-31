@@ -27,14 +27,19 @@ public class YamlProjectRepository implements ProjectRepository {
     private final static String TITLE_PROPERTY = "title";
     private final static String COLUMNS_PROPERTY = "columns";
     private final static String TASKS_PROPERTY = "tasks";
+    public final static String DEFAULT_PATH = "projects";
     
-
     private Yaml yaml;
     private String saveDirectoryPath;
 
     public YamlProjectRepository(String saveDirectoryPath) {
         this.yaml = new Yaml(new Constructor(Project.class, new LoaderOptions()));
         this.saveDirectoryPath = saveDirectoryPath;
+    }
+
+    public YamlProjectRepository() {
+        this.yaml = new Yaml(new Constructor(Project.class, new LoaderOptions()));
+        this.saveDirectoryPath = DEFAULT_PATH;
     }
 
     @Override
