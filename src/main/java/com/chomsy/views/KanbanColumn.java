@@ -9,12 +9,8 @@ import java.util.stream.Collectors;
 
 import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -23,8 +19,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.input.MouseEvent;
 
 public class KanbanColumn extends VBox implements Observer<ProjectColumn>{
-    private ProjectColumn projectColumn;
-    private EventHandler<? super MouseEvent> onLabelMouseClicked;
+    private final ProjectColumn projectColumn;
+    private final EventHandler<? super MouseEvent> onLabelMouseClicked;
 
     public KanbanColumn(ProjectColumn projectColumn, EventHandler<? super MouseEvent> onLabelMouseClicked) {
         super();
@@ -72,7 +68,7 @@ public class KanbanColumn extends VBox implements Observer<ProjectColumn>{
         return add;
     }
 
-    private VBox createTaskCards() {
+    private ScrollPane createTaskCards() {
         VBox taskCardContainer = new VBox();
         List<TaskCard> taskCards = projectColumn
             .getTasks()
@@ -89,7 +85,9 @@ public class KanbanColumn extends VBox implements Observer<ProjectColumn>{
             .collect(Collectors.toList());
         
         taskCardContainer.getChildren().addAll(taskCards);
-        return taskCardContainer;
+        ScrollPane scrollPane = new ScrollPane(taskCardContainer);
+        scrollPane.setFitToWidth(true);
+        return scrollPane;
     }
 
     private void promptRemoveTask(String task) {
